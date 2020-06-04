@@ -1,3 +1,4 @@
+[toc]
 ## 前端js面试题合集
 ### 1、ES6语法知道哪些？分别怎么用
 1. 新增声明命令 let 和 const， let表示变量 const表示常量
@@ -475,4 +476,69 @@ var deepCopy = function(obj){
   return cloneObj;
 }
 ```
-### 9、
+### 9、如何用正则实现trim()?
+```
+trim()方法去掉字符串两端的空格，无论有多少个空格都会去掉，字符串中间的空格不会被去掉。
+function  trim(string){
+    return string.replace(/^\s+|\s+$/g);
+}
+var str = '   ab  cd ef   ';
+var res = replace(str);
+console.log(res);   //'ab  cd ef'
+```
+### 10、不用class如何实现继承，用class如何实现继承？
+```
+//不用class
+function Person(name,age){
+  this.name = name;
+  this.age = age;
+}
+
+Person.prototype.printName =function(){
+  console.log(this.name);
+}
+
+// 继承属性
+function Mail(name,age,sex){
+  Person.call(this,name,age);
+  this.sex = sex;
+}
+
+// 继承方法
+//Object.create 创建一个空对象，空对象的_proto_指向Person.prototype
+Mail.prototype = Object.create(Person.prototype);
+Mail.prototype.printSex = function(){
+  console.log(this.sex);
+}
+//因为Mail.prototype此时是指向Person.prototype的，所以Mail.prototype.contructor是指向 Person的。我们需要修改它的指向。
+Mail.prototype.contructor = Mail
+
+var john = new Mail('约翰',20,'男');
+console.log(john.name);
+john.printName();
+john.printSex();
+```
+```
+//用class
+class Person {
+  constructor(name,age){
+    this.name = name;
+    this.age = age;
+  }
+  
+  sayAge(){
+    console.log(`i am ${this.age}`)
+  }
+}
+
+class Student extends Person{
+  constructor(name,age,score){
+    supre(name,age);
+    this.socre = score;
+  }
+  
+  sayScore(){
+    console.log(`i get ${this.score}`);
+  }
+}
+```
